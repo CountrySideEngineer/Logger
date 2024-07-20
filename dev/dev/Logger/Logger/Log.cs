@@ -73,7 +73,7 @@ namespace Logger
 		/// </summary>
 		/// <param name="message">Log message.</param>
 		public static void TRACE(
-			string message, 
+			string message = "", 
 			[CallerFilePath] string filePath = "", 
 			[CallerLineNumber] int lineNumber = 0, 
 			[CallerMemberName] string memberName = ""
