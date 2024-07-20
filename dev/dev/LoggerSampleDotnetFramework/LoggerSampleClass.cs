@@ -1,4 +1,4 @@
-﻿using CSEngineer.Logger;
+﻿using Logger;
 
 namespace LoggerSample
 {

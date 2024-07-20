@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using CSEngineer;
-using CSEngineer.Logger;
-using CSEngineer.Logger.Interface;
+using Logger;
+using Logger.Interface;
 
 namespace LoggerSample
 {
@@ -22,7 +21,7 @@ namespace LoggerSample
 
 		static void Main(string[] args)
 		{
-			SetUpLogger(new CSEngineer.Logger.Console.Log()
+			SetUpLogger(new Logger.Console.Log()
 			{
 				TraceOfTrace = true,
 				TraceOn = true,
@@ -31,7 +30,7 @@ namespace LoggerSample
 				TraceOfFatal = true,
 				ErrorOn = false
 			});
-			SetUpLogger(new CSEngineer.Logger.File.Log());
+			SetUpLogger(new Logger.File.Log());
 
 			var sampleClass = new LoggerSampleClass();
 			sampleClass.Sample();
