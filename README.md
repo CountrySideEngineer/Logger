@@ -39,4 +39,35 @@ namespace LoggerSample
 }
 ```
 
-Codes `Log.Addogger` is a method the logger.dll provides, `Logger.Console.Log`, and `Logger.File.Log` are class to output log message into console and file.
+Codes `Log.Addogger` is a method the logger.dll provides, `Logger.Console.Log`, and `Logger.File.Log` are class to output log message into console and file.  
+The codes of `LoggerSampleClass` are below:
+
+```
+using Logger;
+
+namespace LoggerSample
+{
+	public class LoggerSampleClass
+	{
+		public LoggerSampleClass() { }
+
+		public void Sample()
+		{
+			Log.TRACE("Sample TRACE message");
+			Log.DEBUG("Sample DEBUG message");
+			Log.INFO("Sample INFO message");
+			Log.WARN("Sample WARN message");
+			Log.ERROR("Sample ERROR message");
+			Log.FATAL("Sample FATAL message");
+		}
+	}
+}
+```
+
+When the codes above are executed, the console like below will be displayed.
+![sample_screen_shotpng](https://github.com/user-attachments/assets/cef742e7-bdf9-44d3-ac68-f710dde0bdb2)
+
+And the same message will be output into a file like below:
+[sample_log_file.log](https://github.com/user-attachments/files/16322408/sample_log_file.log)
+File name is `yyyyMMddHHmmss` format.
+It can change. The way to change, see wiki pages.
