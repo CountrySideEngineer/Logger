@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace CSEngineer.Logger.Interface
+namespace Logger.Interface
 {
 	public interface ILog
 	{

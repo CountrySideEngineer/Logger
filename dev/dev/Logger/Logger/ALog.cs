@@ -1,8 +1,8 @@
-﻿using CSEngineer.Logger.EventArg;
-using CSEngineer.Logger.Interface;
+﻿using Logger.EventArg;
+using Logger.Interface;
 using System;
 
-namespace CSEngineer.Logger
+namespace Logger
 {
 	public abstract class ALog : ILog, ILogEvent
 	{

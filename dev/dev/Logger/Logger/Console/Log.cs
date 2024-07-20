@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CSEngineer.Logger.Console
+namespace Logger.Console
 {
 	/// <summary>
 	/// Log class to output message into console, standard output.

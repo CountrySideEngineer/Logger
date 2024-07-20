@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CSEngineer.Logger.EventArg
+namespace Logger.EventArg
 {
 	/// <summary>
 	/// Event argument class for log event.

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace CSEngineer.Logger.File
+namespace Logger.File
 {
 	public class Log : ALog
 	{

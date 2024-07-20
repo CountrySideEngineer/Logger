@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CSEngineer.Logger.Interface
+namespace Logger.Interface
 {
 	/// <summary>
 	/// Log event interface.
