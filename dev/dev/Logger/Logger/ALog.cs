@@ -36,28 +36,64 @@ namespace Logger
 		/// </summary>
 		protected static string _FATAL = "FATAL";
 
+		/// <summary>
+		/// Flag displaying trace information at TRACE level.
+		/// </summary>
 		public bool TraceOfTrace { get; set; } = true;
 
+		/// <summary>
+		/// Flags for TRACE level log output.
+		/// </summary>
 		public bool TraceOn { get; set; } = true;
 
+		/// <summary>
+		/// Flag displaying trace information at DEBUG level.
+		/// </summary>
 		public bool TraceOfDebug { get; set; } = false;
 
+		/// <summary>
+		/// Flags for DEBUG level log output.
+		/// </summary>
 		public bool DebugOn { get; set; } = true;
 
+		/// <summary>
+		/// Flag displaying trace information at INFO (information) level.
+		/// </summary>
 		public bool TraceOfInfo { get; set; } = false;
 
+		/// <summary>
+		/// Flags for DEBUG level log output.
+		/// </summary>
 		public bool InfoOn { get; set; } = false;
 
+		/// <summary>
+		/// Flag displaying trace information at WARN (warning) level.
+		/// </summary>
 		public bool TraceOfWarn { get; set; } = false;
 
+		/// <summary>
+		/// Flags for WARN (warning) level log output.
+		/// </summary>
 		public bool WarnOn { get; set; } = true;
 
+		/// <summary>
+		/// Flag displaying trace information at ERROR level.
+		/// </summary>
 		public bool TraceOfError { get; set; } = false;
 
+		/// <summary>
+		/// Flags for ERROR level log output.
+		/// </summary>
 		public bool ErrorOn { get; set; } = true;
 
+		/// <summary>
+		/// Flag displaying trace information at FATAL level.
+		/// </summary>
 		public bool TraceOfFatal { get; set; } = false;
 
+		/// <summary>
+		/// Flags for FATAL level log output.
+		/// </summary>
 		public bool FatalOn { get; set; } = true;
 
 		/// <summary>
