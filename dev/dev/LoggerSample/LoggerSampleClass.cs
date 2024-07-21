@@ -13,6 +13,7 @@ namespace LoggerSample
 
 		public void Sample()
 		{
+			Log.TRACE();
 			Log.TRACE("Sample TRACE message");
 			Log.DEBUG("Sample DEBUG message");
 			Log.INFO("Sample INFO message");

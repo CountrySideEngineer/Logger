@@ -23,7 +23,7 @@ namespace LoggerSample
 		{
 			SetUpLogger(new Logger.Console.Log()
 			{
-				TraceOfTrace = false,
+				TraceOfTrace = true,
 				TraceOn = true,
 				TraceOfDebug = true,
 				DebugOn = true,
