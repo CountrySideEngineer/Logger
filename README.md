@@ -4,6 +4,7 @@
 ![APP_VER](https://img.shields.io/badge/Logger_for_C%23-v1.0.0-blue)
 ![DOT_NET_CORE](https://img.shields.io/badge/Core-3.1-%20?style=flat&logo=.NET&color=%23512BD4)
 ![DOT_NET_FRAMEWORK](https://img.shields.io/badge/Framework-4.7.1-a?style=flat&logo=.NET)
+![OS](https://img.shields.io/badge/-Windows10-0078D6.svg?logo=windows&style=flat)
 
 Logger library for C#.
 
