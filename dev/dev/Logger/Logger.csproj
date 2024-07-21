@@ -4,9 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Logger</RootNamespace>
     <AssemblyName>Logger</AssemblyName>
-    <Version>1.0.0.0</Version>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
+    <Version>1.1.0.0</Version>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
     <Description>A logger library that works on a .NET environment.</Description>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/CountrySideEngineer/Logger</RepositoryUrl>
