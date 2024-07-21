@@ -247,8 +247,10 @@ namespace Logger
 						logMessage += optLog;
 					}
 				}
-				logMessage += $":{logEventArg.Message}";
-
+				if ((!string.IsNullOrEmpty(logEventArg.Message)) && (!string.IsNullOrWhiteSpace(logEventArg.Message)))
+				{
+					logMessage += $":{logEventArg.Message}";
+				}
 				return logMessage;
 			}
 			catch (Exception ex)
