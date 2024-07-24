@@ -39,62 +39,62 @@ namespace Logger
 		/// <summary>
 		/// Flag displaying trace information at TRACE level.
 		/// </summary>
-		public bool TraceOfTrace { get; set; } = true;
+		public virtual bool TraceOfTrace { get; set; } = true;
 
 		/// <summary>
 		/// Flags for TRACE level log output.
 		/// </summary>
-		public bool TraceOn { get; set; } = true;
+		public virtual bool TraceOn { get; set; } = true;
 
 		/// <summary>
 		/// Flag displaying trace information at DEBUG level.
 		/// </summary>
-		public bool TraceOfDebug { get; set; } = false;
+		public virtual bool TraceOfDebug { get; set; } = false;
 
 		/// <summary>
 		/// Flags for DEBUG level log output.
 		/// </summary>
-		public bool DebugOn { get; set; } = true;
+		public virtual bool DebugOn { get; set; } = true;
 
 		/// <summary>
 		/// Flag displaying trace information at INFO (information) level.
 		/// </summary>
-		public bool TraceOfInfo { get; set; } = false;
+		public virtual bool TraceOfInfo { get; set; } = false;
 
 		/// <summary>
 		/// Flags for DEBUG level log output.
 		/// </summary>
-		public bool InfoOn { get; set; } = false;
+		public virtual bool InfoOn { get; set; } = false;
 
 		/// <summary>
 		/// Flag displaying trace information at WARN (warning) level.
 		/// </summary>
-		public bool TraceOfWarn { get; set; } = false;
+		public virtual bool TraceOfWarn { get; set; } = false;
 
 		/// <summary>
 		/// Flags for WARN (warning) level log output.
 		/// </summary>
-		public bool WarnOn { get; set; } = true;
+		public virtual bool WarnOn { get; set; } = true;
 
 		/// <summary>
 		/// Flag displaying trace information at ERROR level.
 		/// </summary>
-		public bool TraceOfError { get; set; } = false;
+		public virtual bool TraceOfError { get; set; } = false;
 
 		/// <summary>
 		/// Flags for ERROR level log output.
 		/// </summary>
-		public bool ErrorOn { get; set; } = true;
+		public virtual bool ErrorOn { get; set; } = true;
 
 		/// <summary>
 		/// Flag displaying trace information at FATAL level.
 		/// </summary>
-		public bool TraceOfFatal { get; set; } = false;
+		public virtual bool TraceOfFatal { get; set; } = false;
 
 		/// <summary>
 		/// Flags for FATAL level log output.
 		/// </summary>
-		public bool FatalOn { get; set; } = true;
+		public virtual bool FatalOn { get; set; } = true;
 
 		/// <summary>
 		/// DEBUG level log event handler.
