@@ -45,6 +45,9 @@
     <Compile Include="..\Logger\Logger\ALog.cs">
       <Link>ALog.cs</Link>
     </Compile>
+    <Compile Include="..\Logger\Logger\Console\DebugLog.cs">
+      <Link>Logger\Console\DebugLog.cs</Link>
+    </Compile>
     <Compile Include="..\Logger\Logger\Console\Log.cs">
       <Link>Logger\Console\Log.cs</Link>
     </Compile>
