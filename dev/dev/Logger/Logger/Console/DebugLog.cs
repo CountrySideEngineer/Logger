@@ -18,7 +18,7 @@ namespace Logger.Console
 		/// </summary>
 		/// <param name="message">Log message</param>
 		/// <remarks>
-		/// !ATTENTION!
+		/// !!ATTENTION!!
 		/// To use this method, define DEBUG constant.
 		/// </remarks>
 		public override void Output(string message)
