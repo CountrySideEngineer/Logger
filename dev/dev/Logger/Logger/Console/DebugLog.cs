@@ -1,4 +1,5 @@
-﻿using System;
+﻿#define DEBUG
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
@@ -17,15 +18,12 @@ namespace Logger.Console
 		/// </summary>
 		/// <param name="message">Log message</param>
 		/// <remarks>
-		/// ATTENTION!!
-		/// This method only outputs a message if the DEBUG constant is defined.
-		/// (If the DEBUG constant is not defined, the message is not output.)
+		/// !ATTENTION!
+		/// To use this method, define DEBUG constant.
 		/// </remarks>
 		public override void Output(string message)
 		{
-#if DEBUG
 			Debug.WriteLine(message);
-#endif
 		}
 	}
 }
