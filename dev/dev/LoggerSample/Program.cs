@@ -21,6 +21,7 @@ namespace LoggerSample
 
 		static void Main(string[] args)
 		{
+			SetUpLogger(new Logger.Console.DebugLog());
 			SetUpLogger(new Logger.Console.Log()
 			{
 				TraceOfTrace = true,
