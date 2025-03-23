@@ -158,28 +158,28 @@ namespace Logger
 			RaiseLogEvent(log.FatalLogEventHandler, message, filePath, lineNumber, memberName);
 		}
 
-		/// <summary>
-		/// Raise log send event.
-		/// </summary>
-		/// <param name="eventHandler">Log event handler (delegate).</param>
-		/// <param name="message">Log message</param>
-		protected static void RaiseLogEvent(
-			LogMessageEventHandler eventHandler, 
-			string message,
-			string filePath = "",
-			int lineNumber = 0,
-			string memberName = ""
-			)
-		{
-			var eventArg = new LogEventArgs(message, filePath, lineNumber, memberName);
-			eventHandler?.Invoke(Log.GetInstance(), eventArg);
-		}
+        /// <summary>
+        /// Raise log send event.
+        /// </summary>
+        /// <param name="eventHandler">Log event handler (delegate).</param>
+        /// <param name="message">Log message</param>
+        protected static void RaiseLogEvent(
+            LogMessageEventHandler eventHandler,
+            string message,
+            string filePath = "",
+            int lineNumber = 0,
+            string memberName = ""
+            )
+        {
+            var eventArg = new LogEventArgs(message, filePath, lineNumber, memberName);
+            eventHandler?.Invoke(Log.GetInstance(), eventArg);
+        }
 
-		/// <summary>
-		/// Setup event handler.
-		/// </summary>
-		/// <param name="logger"></param>
-		public static void AddLogger(ALog logger)
+        /// <summary>
+        /// Setup event handler.
+        /// </summary>
+        /// <param name="logger"></param>
+        public static void AddLogger(ALog logger)
 		{
 			var log = Log.GetInstance();
 
