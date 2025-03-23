@@ -1,259 +1,285 @@
 ﻿using Logger.EventArg;
 using Logger.Interface;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace Logger
 {
 	public abstract class ALog : ILog, ILogEvent
 	{
+        public enum LOG_LEVEL
+        {
+            OFF,
+            FATAL,
+            ERROR,
+            WARNING,
+            INFO,
+            DEBUG,
+            TRACE,
+            ALL,
+        };
+
+        public LOG_LEVEL LogLevel = LOG_LEVEL.ALL;
+
 		/// <summary>
 		/// TRACE level log tag.
 		/// </summary>
-		protected static string _TRACE = "TRACE";
+        public string TRACE_TAG { get; protected set; } = "TRACE";
 
-		/// <summary>
-		/// DEBUG level log tag.
-		/// </summary>
-		protected static string _DEBUG = "DEBUG";
+        /// <summary>
+        /// DEBUG level log tag.
+        /// </summary>
+        public string DEBUG_TAG { get; protected set; } = "DEBUG";
 
 		/// <summary>
 		/// INFO level log tag.
 		/// </summary>
-		protected static string _INFO = "INFO ";
+		public string INFO_TAG { get; protected set; } = "INFO ";
 
 		/// <summary>
 		/// WARN level log tag.
 		/// </summary>
-		protected static string _WARN = "WARN ";
+        public string WARN_TAG { get; protected set; } = "WARN ";
 
-		/// <summary>
-		/// ERROR level log tag.
-		/// </summary>
-		protected static string _ERROR = "ERROR";
+        /// <summary>
+        /// ERROR level log tag.
+        /// </summary>
+        public string ERROR_TAG { get; protected set; } = "ERROR";
 
 		/// <summary>
 		/// FATAL level log tag.
 		/// </summary>
-		protected static string _FATAL = "FATAL";
+		public string FATAL_TAG { get; protected set; } = "FATAL";
 
-		/// <summary>
-		/// Flag displaying trace information at TRACE level.
-		/// </summary>
-		public virtual bool TraceOfTrace { get; set; } = true;
+        /// <summary>
+        /// デフォルトコンストラクタ
+        /// </summary>
+        public ALog() { }
 
-		/// <summary>
-		/// Flags for TRACE level log output.
-		/// </summary>
-		public virtual bool TraceOn { get; set; } = true;
+        public ALog(LOG_LEVEL logLevel)
+        {
+            LogLevel = logLevel;
+        }
 
-		/// <summary>
-		/// Flag displaying trace information at DEBUG level.
-		/// </summary>
-		public virtual bool TraceOfDebug { get; set; } = false;
+        public ALog(
+            LOG_LEVEL logLevel,
+            string fatalTag, string errTag, string warnTag, string infoTag, string debugTag, string traceTag
+            )
+            : this(logLevel)
+        {
+            FATAL_TAG = fatalTag;
+            ERROR_TAG = errTag;
+            WARN_TAG = warnTag;
+            INFO_TAG = infoTag;
+            DEBUG_TAG = debugTag;
+            TRACE_TAG = traceTag;
+        }
 
-		/// <summary>
-		/// Flags for DEBUG level log output.
-		/// </summary>
-		public virtual bool DebugOn { get; set; } = true;
+        public ALog(
+            LOG_LEVEL logLevel,
+            string fatalTag, string errTag, string warnTag, string infoTag, string debugTag, string traceTag,
+            string dateTimeFormat
+            )
+            : this(logLevel, fatalTag, errTag, warnTag, infoTag, debugTag, traceTag)
+        {
+            TIME_STAMP_FORMAT = dateTimeFormat;
+        }
 
-		/// <summary>
-		/// Flag displaying trace information at INFO (information) level.
-		/// </summary>
-		public virtual bool TraceOfInfo { get; set; } = false;
+        /// <summary>
+        /// FATAL level log event handler.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Log event argument.</param>
+        public virtual void FATAL(object sender, EventArgs e)
+        {
+            string message = GetMessage(e);
+            var eventArg = (LogEventArgs)e;
+            FATAL(message, eventArg.FileName, eventArg.LineNumber, eventArg.MemberName);
+        }
 
-		/// <summary>
-		/// Flags for DEBUG level log output.
-		/// </summary>
-		public virtual bool InfoOn { get; set; } = false;
+        /// <summary>
+        /// FATAL level log.
+        /// </summary>
+        /// <param name="message">Log message.</param>
+        public virtual void FATAL(
+            string message,
+            [CallerFilePath] string filePath = "",
+            [CallerLineNumber] int lineNumber = 0,
+            [CallerMemberName] string memberName = ""
+            )
+        {
+            if (LOG_LEVEL.FATAL <= LogLevel)
+            {
+                string outputMessage = GetOutputMessage(FATAL_TAG, message, filePath, lineNumber, memberName);
+                Output(outputMessage);
+            }
+        }
 
-		/// <summary>
-		/// Flag displaying trace information at WARN (warning) level.
-		/// </summary>
-		public virtual bool TraceOfWarn { get; set; } = false;
+        /// <summary>
+        /// ERROR level log event handler.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Log event argument.</param>
+        public virtual void ERROR(object sender, EventArgs e)
+        {
+            string message = GetMessage(e);
+            var eventArg = (LogEventArgs)e;
+            ERROR(message, eventArg.FileName, eventArg.LineNumber, eventArg.MemberName);
+        }
 
-		/// <summary>
-		/// Flags for WARN (warning) level log output.
-		/// </summary>
-		public virtual bool WarnOn { get; set; } = true;
+        /// <summary>
+        /// ERROR level log.
+        /// </summary>
+        /// <param name="message">Log message.</param>
+        public virtual void ERROR(
+            string message,
+            [CallerFilePath] string filePath = "",
+            [CallerLineNumber] int lineNumber = 0,
+            [CallerMemberName] string memberName = ""
+            )
+        {
+            if (LOG_LEVEL.ERROR <= LogLevel)
+            {
+                string outputMessage = GetOutputMessage(ERROR_TAG, message, filePath, lineNumber, memberName);
+                Output(outputMessage);
+            }
+        }
 
-		/// <summary>
-		/// Flag displaying trace information at ERROR level.
-		/// </summary>
-		public virtual bool TraceOfError { get; set; } = false;
+        /// <summary>
+        /// WARN (warning) level log event handler.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Log event argument.</param>
+        public virtual void WARN(object sender, EventArgs e)
+        {
+            string message = GetMessage(e);
+            var eventArg = (LogEventArgs)e;
+            WARN(message, eventArg.FileName, eventArg.LineNumber, eventArg.MemberName);
+        }
 
-		/// <summary>
-		/// Flags for ERROR level log output.
-		/// </summary>
-		public virtual bool ErrorOn { get; set; } = true;
+        /// <summary>
+        /// WARN (warning) level log.
+        /// </summary>
+        /// <param name="message">Log message.</param>
+        public virtual void WARN(
+            string message,
+            [CallerFilePath] string filePath = "",
+            [CallerLineNumber] int lineNumber = 0,
+            [CallerMemberName] string memberName = ""
+            )
+        {
+            if (LOG_LEVEL.WARNING <= LogLevel)
+            {
+                string outputMessage = GetOutputMessage(WARN_TAG, message, filePath, lineNumber, memberName);
+                Output(outputMessage);
+            }
+        }
 
-		/// <summary>
-		/// Flag displaying trace information at FATAL level.
-		/// </summary>
-		public virtual bool TraceOfFatal { get; set; } = false;
+        /// <summary>
+        /// INFO (information) level log event handler.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Log event argument.</param>
+        public virtual void INFO(object sender, EventArgs e)
+        {
+            string message = GetMessage(e);
+            var eventArg = (LogEventArgs)e;
+            INFO(message, eventArg.FileName, eventArg.LineNumber, eventArg.MemberName);
+        }
 
-		/// <summary>
-		/// Flags for FATAL level log output.
-		/// </summary>
-		public virtual bool FatalOn { get; set; } = true;
+        /// <summary>
+        /// INFO (information) level log.
+        /// </summary>
+        /// <param name="message">Log message.</param>
+        public virtual void INFO(
+            string message,
+            [CallerFilePath] string filePath = "",
+            [CallerLineNumber] int lineNumber = 0,
+            [CallerMemberName] string memberName = ""
+            )
+        {
+            if (LOG_LEVEL.INFO <= LogLevel)
+            {
+                string outputMessage = GetOutputMessage(INFO_TAG, message, filePath, lineNumber, memberName);
+                Output(outputMessage);
+            }
+        }
 
-		/// <summary>
-		/// DEBUG level log event handler.
-		/// </summary>
-		/// <param name="sender">Sender object.</param>
-		/// <param name="e">Log event argument.</param>
-		public virtual void DEBUG(object sender, EventArgs e)
+        /// <summary>
+        /// DEBUG level log event handler.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Log event argument.</param>
+        public virtual void DEBUG(object sender, EventArgs e)
 		{
-			if (DebugOn)
-			{
-				Output(ALog._DEBUG, TraceOfDebug, e);
-			}
-		}
+            string message = GetMessage(e);
+            var eventArg = (LogEventArgs)e;
+            DEBUG(message, eventArg.FileName, eventArg.LineNumber, eventArg.MemberName);
+        }
 
-		/// <summary>
-		/// DEBUG level log.
-		/// </summary>
-		/// <param name="message">Log message.</param>
-		public virtual void DEBUG(string message)
-		{
-			DEBUG(ALog._DEBUG, new LogEventArgs(message));
-		}
+        /// <summary>
+        /// DEBUG level log.
+        /// </summary>
+        /// <param name="message">Log message.</param>
+        public virtual void DEBUG(
+            string message,
+            [CallerFilePath] string filePath = "",
+            [CallerLineNumber] int lineNumber = 0,
+            [CallerMemberName] string memberName = ""
+            )
+        {
+            if (LOG_LEVEL.DEBUG <= LogLevel)
+            {
+                string outputMessage = GetOutputMessage(DEBUG_TAG, message, filePath, lineNumber, memberName);
+                Output(outputMessage);
+            }
+        }
 
-		/// <summary>
-		/// ERROR level log event handler.
-		/// </summary>
-		/// <param name="sender">Sender object.</param>
-		/// <param name="e">Log event argument.</param>
-		public virtual void ERROR(object sender, EventArgs e)
+        /// <summary>
+        /// TRACE level log event handler.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Log event argument.</param>
+        public virtual void TRACE(object sender, EventArgs e)
 		{
-			if (ErrorOn)
-			{
-				Output(ALog._ERROR, TraceOfError, e);
-			}
-		}
-
-		/// <summary>
-		/// ERROR level log.
-		/// </summary>
-		/// <param name="message">Log message.</param>
-		public virtual void ERROR(string message)
-		{
-			ERROR(ALog._ERROR, new LogEventArgs(message));
-		}
-
-		/// <summary>
-		/// FATAL level log event handler.
-		/// </summary>
-		/// <param name="sender">Sender object.</param>
-		/// <param name="e">Log event argument.</param>
-		public virtual void FATAL(object sender, EventArgs e)
-		{
-			if (FatalOn)
-			{
-				Output(ALog._FATAL, TraceOfFatal, e);
-			}
-		}
-
-		/// <summary>
-		/// FATAL level log.
-		/// </summary>
-		/// <param name="message">Log message.</param>
-		public virtual void FATAL(string message)
-		{
-			FATAL(ALog._FATAL, new LogEventArgs(message));
-		}
-
-		/// <summary>
-		/// INFO (information) level log event handler.
-		/// </summary>
-		/// <param name="sender">Sender object.</param>
-		/// <param name="e">Log event argument.</param>
-		public virtual void INFO(object sender, EventArgs e)
-		{
-			if (InfoOn)
-			{
-				Output(ALog._INFO, TraceOfInfo, e);
-			}
-		}
-
-		/// <summary>
-		/// INFO (information) level log.
-		/// </summary>
-		/// <param name="message">Log message.</param>
-		public virtual void INFO(string message)
-		{
-			INFO(ALog._INFO, new LogEventArgs(message));
-		}
-
-		/// <summary>
-		/// TRACE level log event handler.
-		/// </summary>
-		/// <param name="sender">Sender object.</param>
-		/// <param name="e">Log event argument.</param>
-		public virtual void TRACE(object sende, EventArgs e)
-		{
-			if (TraceOn)
-			{
-				Output(ALog._TRACE, TraceOfTrace, e);
-			}
+            string message = GetMessage(e);
+            var eventArg = (LogEventArgs)e;
+            TRACE(message, eventArg.FileName, eventArg.LineNumber, eventArg.MemberName);
 		}
 
 		/// <summary>
 		/// TRACE level log.
 		/// </summary>
 		/// <param name="message">Log message.</param>
-		public virtual void TRACE(string message)
-		{
-			TRACE(ALog._TRACE, new LogEventArgs(message));
-		}
+		public virtual void TRACE(
+            string message,
+            [CallerFilePath] string filePath = "",
+            [CallerLineNumber] int lineNumber = 0,
+            [CallerMemberName] string memberName = ""
+            )
+        {
+            if (LOG_LEVEL.TRACE <= LogLevel)
+            {
+                string outputMessage = GetOutputMessage(TRACE_TAG, message, filePath, lineNumber, memberName);
+                Output(outputMessage);
+            }
+        }
 
-		/// <summary>
-		/// WARN (warning) level log event handler.
-		/// </summary>
-		/// <param name="sender">Sender object.</param>
-		/// <param name="e">Log event argument.</param>
-		public virtual void WARN(object sender, EventArgs e)
-		{
-			if (WarnOn)
-			{
-				Output(ALog._WARN, TraceOfWarn, e);
-			}
-		}
+        protected virtual string GetMessage(EventArgs e)
+        {
+            try
+            {
+                LogEventArgs eventArg = (LogEventArgs)e;
+                string message = eventArg.Message;
 
-		/// <summary>
-		/// WARN (warning) level log.
-		/// </summary>
-		/// <param name="message">Log message.</param>
-		public virtual void WARN(string message)
-		{
-			WARN(ALog._WARN, new LogEventArgs(message));
-		}
-
-		/// <summary>
-		/// Extract log message from event argument.
-		/// </summary>
-		/// <param name="e">Event argument.</param>
-		/// <returns>Log message.</returns>
-		protected virtual string ExtractMessage(EventArgs e)
-		{
-			try
-			{
-				var logEventArsg = (LogEventArgs)e;
-				string message = logEventArsg.Message;
-
-				return message;
-			}
-			catch (Exception ex)
-			when ((ex is InvalidCastException) || (ex is NullReferenceException))
-			{
-				string message = "Unknown message received.";
-				return message;
-			}
-			catch (Exception)
-			{
-				string message = "Invalid message received.";
-				return message;
-			}
-		}
+                return message;
+            }
+            catch (Exception ex)
+            when ((ex is NullReferenceException) || (ex is InvalidCastException))
+            {
+                return string.Empty;
+            }
+        }
 
 		/// <summary>
 		/// Generate message from event arguments.
@@ -262,49 +288,42 @@ namespace Logger
 		/// <param name="traceOfLevel">Bool whether the trace information output or not.</param>
 		/// <param name="e">Message source event argument.</param>
 		/// <returns>Message</returns>
-		protected virtual string GenerateMessage(string level, bool traceOfLevel, EventArgs e)
+		protected virtual string GetOutputMessage(
+            string level, 
+            string message, 
+            string filePath = "", 
+            int lineNumber = 0, 
+            string memberName = "")
 		{
-			string timeStamp = GetTimeStamp();
-			string logMessage = $"[{level}][{timeStamp}]";
-
 			try
 			{
-				var logEventArg = (LogEventArgs)e;
-				if (traceOfLevel)
-				{
-					if ((!string.IsNullOrEmpty(logEventArg.FileName)) &&
-						(!string.IsNullOrWhiteSpace(logEventArg.FileName)) &&
-						(!string.IsNullOrEmpty(logEventArg.MemberName)) &&
-						(!string.IsNullOrWhiteSpace(logEventArg.MemberName)) &&
-						(0 < logEventArg.LineNumber)
-						)
-					{
-						string optLog = $"[{logEventArg.FileName}({logEventArg.LineNumber,4})][{logEventArg.MemberName}]";
-						logMessage += optLog;
-					}
-				}
-				if ((!string.IsNullOrEmpty(logEventArg.Message)) && (!string.IsNullOrWhiteSpace(logEventArg.Message)))
-				{
-					logMessage += $":{logEventArg.Message}";
-				}
-				return logMessage;
+                string logLevelTag = GetLogLevelTag(level);
+                string timeStamp = GetTimeStampTag();
+                string logOpt = GetOption(filePath, lineNumber, memberName);
+
+                if ((!string.IsNullOrEmpty(message)) && (!string.IsNullOrWhiteSpace(message)))
+                {
+                    string msgHeader = $"{logLevelTag}{timeStamp}{logOpt}";
+                    if (!(string.IsNullOrEmpty(msgHeader)) && (!(string.IsNullOrWhiteSpace(msgHeader))))
+                    {
+                        return $"{msgHeader}:{message}";
+                    }
+                    else
+                    {
+                        return message;
+                    }
+                }
+                else
+                {
+                    return string.Empty;
+
+                }
 			}
 			catch (Exception ex)
-			when ((ex is InvalidCastException) || (ex is NullReferenceException))
+			when ((ex is NullReferenceException) || (ex is ArgumentNullException))
 			{
 				throw new NotSupportedException("Log message invalid.");
 			}
-		}
-
-		/// <summary>
-		/// Output message from event argument.
-		/// </summary>
-		/// <param name="level">Log level.</param>
-		/// <param name="e">Event argument.</param>
-		protected virtual void Output(string level, bool doesShowTrace, EventArgs e)
-		{
-			string message = GenerateMessage(level, doesShowTrace, e);
-			Output(message);
 		}
 
 		/// <summary>
@@ -317,13 +336,25 @@ namespace Logger
 		/// <summary>
 		/// Default time stamp format.
 		/// </summary>
-		private static string TIME_STAMP_FORMAT = "yyyy/MM/dd HH:mm:ss.fff";
+		protected string TIME_STAMP_FORMAT = "yyyy/MM/dd HH:mm:ss.fff";
 
-		/// <summary>
-		/// Return time stamp.
-		/// </summary>
-		/// <returns>Time stamp in string.</returns>
-		public virtual string GetTimeStamp()
+        public virtual string GetTimeStampTag()
+        {
+            return GetTimeStampTag(TIME_STAMP_FORMAT);
+        }
+
+        public virtual string GetTimeStampTag(string format)
+        {
+            string timeStamp = GetTimeStamp(format);
+            string timeStampTag = $"[{timeStamp}]";
+            return timeStampTag;
+        }
+
+        /// <summary>
+        /// Return time stamp.
+        /// </summary>
+        /// <returns>Time stamp in string.</returns>
+        public virtual string GetTimeStamp()
 		{
 			string timeStamp = GetTimeStamp(TIME_STAMP_FORMAT);
 			return timeStamp;
@@ -336,8 +367,58 @@ namespace Logger
 		/// <returns>Time stamp in string.</returns>
 		public virtual string GetTimeStamp(string format)
 		{
-			string timeStamp = DateTime.Now.ToString(format);
-			return timeStamp;
+            try
+            {
+                string timeStamp = DateTime.Now.ToString(format);
+                return timeStamp;
+            }
+            catch (Exception ex)
+            when (
+                (ex is ArgumentNullException) || 
+                (ex is NullReferenceException) || 
+                (ex is FormatException) || 
+                (ex is ArgumentOutOfRangeException)
+                )
+            {
+                return string.Empty;
+            }
 		}
-	}
+
+        public virtual string GetLogLevelTag(string tag)
+        {
+            if ((string.IsNullOrEmpty(tag)) || (string.IsNullOrWhiteSpace(tag)))
+            {
+                return string.Empty;
+            }
+            else
+            {
+                return $"[{tag}]";
+            }
+        }
+
+        public virtual string GetOption(string filePath, int lineNumber, string memberName)
+        {
+            try
+            {
+                if ((!string.IsNullOrEmpty(filePath)) && (!string.IsNullOrWhiteSpace(filePath)) &&
+                    (!string.IsNullOrEmpty(memberName)) && (!string.IsNullOrWhiteSpace(memberName)) &&
+                    (0 < lineNumber)
+                    )
+                {
+                    string option = $"[{filePath}({lineNumber,5})][{memberName}]";
+                    return option;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+            }
+        }
+
+
+    }
 }

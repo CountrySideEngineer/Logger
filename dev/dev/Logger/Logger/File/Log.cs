@@ -15,7 +15,7 @@ namespace Logger.File
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-		public Log()
+		public Log() : base()
 		{
 			FilePath = GenerateDefaultFilePath();
 		}
@@ -24,7 +24,7 @@ namespace Logger.File
 		/// Constructor with path to log fiel.
 		/// </summary>
 		/// <param name="filePath">Path to log file.</param>
-		public Log(string filePath)
+		public Log(string filePath) : base()
 		{
 			FilePath = filePath;
 		}
