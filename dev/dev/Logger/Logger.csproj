@@ -4,15 +4,20 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Logger</RootNamespace>
     <AssemblyName>Logger</AssemblyName>
-    <Version>2.0.0.1</Version>
-    <AssemblyVersion>1.2.1.0</AssemblyVersion>
-    <FileVersion>1.2.1.0</FileVersion>
+    <Version>2.0.0.2</Version>
+    <AssemblyVersion>2.0.0.2</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
     <Description>A logger library that works on a .NET environment.</Description>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/CountrySideEngineer/Logger</RepositoryUrl>
-    <Copyright></Copyright>
+    <Copyright>Copyright @2025</Copyright>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://github.com/CountrySideEngineer/Logger</PackageProjectUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Authors>CountrySideEngineer</Authors>
+    <PackageTags>Logger</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
