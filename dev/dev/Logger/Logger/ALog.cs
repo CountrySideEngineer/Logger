@@ -52,15 +52,29 @@ namespace Logger
 		public string FATAL_TAG { get; protected set; } = "FATAL";
 
         /// <summary>
-        /// デフォルトコンストラクタ
+        /// Default constructor.
         /// </summary>
         public ALog() { }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="logLevel">Output log level.</param>
         public ALog(LOG_LEVEL logLevel)
         {
             LogLevel = logLevel;
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="logLevel">Output log level.</param>
+        /// <param name="fatalTag">FATAL level log tag displayed in log message header.</param>
+        /// <param name="errTag">ERROR level log tag displayed in log message header.</param>
+        /// <param name="warnTag">WARN(ing) level log tag displayed in log message header.</param>
+        /// <param name="infoTag">INFO(rmation) level log tag displayed in log message header.</param>
+        /// <param name="debugTag">DEBUG level log tag displayed in log message header.</param>
+        /// <param name="traceTag">TRACE level log tag displayed in log message header.</param></param>
         public ALog(
             LOG_LEVEL logLevel,
             string fatalTag, string errTag, string warnTag, string infoTag, string debugTag, string traceTag
@@ -75,6 +89,17 @@ namespace Logger
             TRACE_TAG = traceTag;
         }
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="logLevel">Output log level.</param>
+        /// <param name="fatalTag">FATAL level log tag displayed in log message header.</param>
+        /// <param name="errTag">ERROR level log tag displayed in log message header.</param>
+        /// <param name="warnTag">WARN(ing) level log tag displayed in log message header.</param>
+        /// <param name="infoTag">INFO(rmation) level log tag displayed in log message header.</param>
+        /// <param name="debugTag">DEBUG level log tag displayed in log message header.</param>
+        /// <param name="traceTag">TRACE level log tag displayed in log message header.</param>
+        /// <param name="dateTimeFormat">Date time format.</param>
         public ALog(
             LOG_LEVEL logLevel,
             string fatalTag, string errTag, string warnTag, string infoTag, string debugTag, string traceTag,
@@ -265,6 +290,11 @@ namespace Logger
             }
         }
 
+        /// <summary>
+        /// Returns message set in log event argument, LogEventArgs object.
+        /// </summary>
+        /// <param name="e">Event argument.</param>
+        /// <returns>Message get from event argument.</returns>
         protected virtual string GetMessage(EventArgs e)
         {
             try
@@ -384,6 +414,11 @@ namespace Logger
             }
 		}
 
+        /// <summary>
+        /// Returns log level tag message.
+        /// </summary>
+        /// <param name="tag">Tag of log level.</param>
+        /// <returns>Log level tag message.</returns>
         public virtual string GetLogLevelTag(string tag)
         {
             if ((string.IsNullOrEmpty(tag)) || (string.IsNullOrWhiteSpace(tag)))
@@ -396,6 +431,13 @@ namespace Logger
             }
         }
 
+        /// <summary>
+        /// Returns log header option message.
+        /// </summary>
+        /// <param name="filePath">Path to file the event raised.</param>
+        /// <param name="lineNumber">The line number the event raised.</param>
+        /// <param name="memberName">The member name the event raised.</param>
+        /// <returns>Log message header option.</returns>
         public virtual string GetOption(string filePath, int lineNumber, string memberName)
         {
             try
@@ -418,7 +460,5 @@ namespace Logger
                 return string.Empty;
             }
         }
-
-
     }
 }
