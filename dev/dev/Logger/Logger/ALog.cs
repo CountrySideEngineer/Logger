@@ -3,7 +3,7 @@ using Logger.Interface;
 using System;
 using System.Runtime.CompilerServices;
 
-namespace Logger
+namespace CS.Logger
 {
 	public abstract class ALog : ILog, ILogEvent
 	{

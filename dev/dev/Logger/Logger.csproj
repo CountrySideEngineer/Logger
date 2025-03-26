@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <RootNamespace>Logger</RootNamespace>
-    <AssemblyName>Logger</AssemblyName>
+    <RootNamespace>CS.Logger</RootNamespace>
+    <AssemblyName>CS.Logger</AssemblyName>
     <Version>2.0.0.2</Version>
     <AssemblyVersion>2.0.0.2</AssemblyVersion>
     <FileVersion>2.0.0.0</FileVersion>

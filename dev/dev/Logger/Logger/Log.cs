@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using Logger.EventArg;
 
-namespace Logger
+namespace CS.Logger
 {
 	public class Log
 	{
