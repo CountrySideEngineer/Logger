@@ -5,21 +5,23 @@ using System.Runtime.CompilerServices;
 
 namespace CS.Logger
 {
-	public abstract class ALog : ILog, ILogEvent
+    public enum LOG_LEVEL
+    {
+        OFF,
+        FATAL,
+        ERROR,
+        WARNING,
+        INFO,
+        DEBUG,
+        TRACE,
+        ALL,
+    };
+    
+    public abstract class ALog : ILog, ILogEvent
 	{
-        public enum LOG_LEVEL
-        {
-            OFF,
-            FATAL,
-            ERROR,
-            WARNING,
-            INFO,
-            DEBUG,
-            TRACE,
-            ALL,
-        };
-
         public LOG_LEVEL LogLevel = LOG_LEVEL.ALL;
+
+        public bool OptionEnable = true;
 
 		/// <summary>
 		/// TRACE level log tag.
@@ -69,6 +71,16 @@ namespace CS.Logger
         /// Constructor
         /// </summary>
         /// <param name="logLevel">Output log level.</param>
+        public ALog(LOG_LEVEL logLevel, bool optionEnable)
+        {
+            LogLevel = logLevel;
+            OptionEnable = optionEnable;
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="logLevel">Output log level.</param>
         /// <param name="fatalTag">FATAL level log tag displayed in log message header.</param>
         /// <param name="errTag">ERROR level log tag displayed in log message header.</param>
         /// <param name="warnTag">WARN(ing) level log tag displayed in log message header.</param>
@@ -77,9 +89,10 @@ namespace CS.Logger
         /// <param name="traceTag">TRACE level log tag displayed in log message header.</param></param>
         public ALog(
             LOG_LEVEL logLevel,
+            bool optionEnable,
             string fatalTag, string errTag, string warnTag, string infoTag, string debugTag, string traceTag
             )
-            : this(logLevel)
+            : this(logLevel, optionEnable)
         {
             FATAL_TAG = fatalTag;
             ERROR_TAG = errTag;
@@ -102,10 +115,11 @@ namespace CS.Logger
         /// <param name="dateTimeFormat">Date time format.</param>
         public ALog(
             LOG_LEVEL logLevel,
+            bool optionEnable,
             string fatalTag, string errTag, string warnTag, string infoTag, string debugTag, string traceTag,
             string dateTimeFormat
             )
-            : this(logLevel, fatalTag, errTag, warnTag, infoTag, debugTag, traceTag)
+            : this(logLevel, optionEnable, fatalTag, errTag, warnTag, infoTag, debugTag, traceTag)
         {
             TIME_STAMP_FORMAT = dateTimeFormat;
         }
@@ -442,13 +456,20 @@ namespace CS.Logger
         {
             try
             {
-                if ((!string.IsNullOrEmpty(filePath)) && (!string.IsNullOrWhiteSpace(filePath)) &&
-                    (!string.IsNullOrEmpty(memberName)) && (!string.IsNullOrWhiteSpace(memberName)) &&
-                    (0 < lineNumber)
-                    )
+                if (OptionEnable)
                 {
-                    string option = $"[{filePath}({lineNumber,5})][{memberName}]";
-                    return option;
+                    if ((!string.IsNullOrEmpty(filePath)) && (!string.IsNullOrWhiteSpace(filePath)) &&
+                        (!string.IsNullOrEmpty(memberName)) && (!string.IsNullOrWhiteSpace(memberName)) &&
+                        (0 < lineNumber)
+                        )
+                    {
+                        string option = $"[{filePath}({lineNumber,5})][{memberName}]";
+                        return option;
+                    }
+                    else
+                    {
+                        return string.Empty;
+                    }
                 }
                 else
                 {
