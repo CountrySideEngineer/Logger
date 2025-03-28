@@ -1,18 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>Logger</RootNamespace>
-    <AssemblyName>Logger</AssemblyName>
-    <Version>2.0.0.1</Version>
-    <AssemblyVersion>1.2.1.0</AssemblyVersion>
-    <FileVersion>1.2.1.0</FileVersion>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>CS.Logger</RootNamespace>
+    <AssemblyName>CS.Logger</AssemblyName>
+    <Version>2.1.0</Version>
+    <AssemblyVersion>2.1.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
     <Description>A logger library that works on a .NET environment.</Description>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/CountrySideEngineer/Logger</RepositoryUrl>
-    <Copyright></Copyright>
+    <Copyright>Copyright @2025</Copyright>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://github.com/CountrySideEngineer/Logger</PackageProjectUrl>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <Authors>CountrySideEngineer</Authors>
+    <PackageTags>Logger;Log</PackageTags>
+    <PackageId>CS.Logger</PackageId>
+    <Product>CS.Logger</Product>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -28,6 +36,10 @@
     <None Include="..\..\..\LICENSE.md">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 

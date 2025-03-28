@@ -3,23 +3,25 @@ using Logger.Interface;
 using System;
 using System.Runtime.CompilerServices;
 
-namespace Logger
+namespace CS.Logger
 {
-	public abstract class ALog : ILog, ILogEvent
+    public enum LOG_LEVEL
+    {
+        OFF,
+        FATAL,
+        ERROR,
+        WARNING,
+        INFO,
+        DEBUG,
+        TRACE,
+        ALL,
+    };
+    
+    public abstract class ALog : ILog, ILogEvent
 	{
-        public enum LOG_LEVEL
-        {
-            OFF,
-            FATAL,
-            ERROR,
-            WARNING,
-            INFO,
-            DEBUG,
-            TRACE,
-            ALL,
-        };
+        public LOG_LEVEL LogLevel { get; protected set; } = LOG_LEVEL.ALL;
 
-        public LOG_LEVEL LogLevel = LOG_LEVEL.ALL;
+        public bool OptionEnable { get; protected set; } = true;
 
 		/// <summary>
 		/// TRACE level log tag.
@@ -52,20 +54,45 @@ namespace Logger
 		public string FATAL_TAG { get; protected set; } = "FATAL";
 
         /// <summary>
-        /// デフォルトコンストラクタ
+        /// Default constructor.
         /// </summary>
         public ALog() { }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="logLevel">Output log level.</param>
         public ALog(LOG_LEVEL logLevel)
         {
             LogLevel = logLevel;
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="logLevel">Output log level.</param>
+        public ALog(LOG_LEVEL logLevel, bool optionEnable)
+        {
+            LogLevel = logLevel;
+            OptionEnable = optionEnable;
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="logLevel">Output log level.</param>
+        /// <param name="fatalTag">FATAL level log tag displayed in log message header.</param>
+        /// <param name="errTag">ERROR level log tag displayed in log message header.</param>
+        /// <param name="warnTag">WARN(ing) level log tag displayed in log message header.</param>
+        /// <param name="infoTag">INFO(rmation) level log tag displayed in log message header.</param>
+        /// <param name="debugTag">DEBUG level log tag displayed in log message header.</param>
+        /// <param name="traceTag">TRACE level log tag displayed in log message header.</param></param>
         public ALog(
             LOG_LEVEL logLevel,
+            bool optionEnable,
             string fatalTag, string errTag, string warnTag, string infoTag, string debugTag, string traceTag
             )
-            : this(logLevel)
+            : this(logLevel, optionEnable)
         {
             FATAL_TAG = fatalTag;
             ERROR_TAG = errTag;
@@ -75,12 +102,24 @@ namespace Logger
             TRACE_TAG = traceTag;
         }
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="logLevel">Output log level.</param>
+        /// <param name="fatalTag">FATAL level log tag displayed in log message header.</param>
+        /// <param name="errTag">ERROR level log tag displayed in log message header.</param>
+        /// <param name="warnTag">WARN(ing) level log tag displayed in log message header.</param>
+        /// <param name="infoTag">INFO(rmation) level log tag displayed in log message header.</param>
+        /// <param name="debugTag">DEBUG level log tag displayed in log message header.</param>
+        /// <param name="traceTag">TRACE level log tag displayed in log message header.</param>
+        /// <param name="dateTimeFormat">Date time format.</param>
         public ALog(
             LOG_LEVEL logLevel,
+            bool optionEnable,
             string fatalTag, string errTag, string warnTag, string infoTag, string debugTag, string traceTag,
             string dateTimeFormat
             )
-            : this(logLevel, fatalTag, errTag, warnTag, infoTag, debugTag, traceTag)
+            : this(logLevel, optionEnable, fatalTag, errTag, warnTag, infoTag, debugTag, traceTag)
         {
             TIME_STAMP_FORMAT = dateTimeFormat;
         }
@@ -265,6 +304,11 @@ namespace Logger
             }
         }
 
+        /// <summary>
+        /// Returns message set in log event argument, LogEventArgs object.
+        /// </summary>
+        /// <param name="e">Event argument.</param>
+        /// <returns>Message get from event argument.</returns>
         protected virtual string GetMessage(EventArgs e)
         {
             try
@@ -384,6 +428,11 @@ namespace Logger
             }
 		}
 
+        /// <summary>
+        /// Returns log level tag message.
+        /// </summary>
+        /// <param name="tag">Tag of log level.</param>
+        /// <returns>Log level tag message.</returns>
         public virtual string GetLogLevelTag(string tag)
         {
             if ((string.IsNullOrEmpty(tag)) || (string.IsNullOrWhiteSpace(tag)))
@@ -396,17 +445,31 @@ namespace Logger
             }
         }
 
+        /// <summary>
+        /// Returns log header option message.
+        /// </summary>
+        /// <param name="filePath">Path to file the event raised.</param>
+        /// <param name="lineNumber">The line number the event raised.</param>
+        /// <param name="memberName">The member name the event raised.</param>
+        /// <returns>Log message header option.</returns>
         public virtual string GetOption(string filePath, int lineNumber, string memberName)
         {
             try
             {
-                if ((!string.IsNullOrEmpty(filePath)) && (!string.IsNullOrWhiteSpace(filePath)) &&
-                    (!string.IsNullOrEmpty(memberName)) && (!string.IsNullOrWhiteSpace(memberName)) &&
-                    (0 < lineNumber)
-                    )
+                if (OptionEnable)
                 {
-                    string option = $"[{filePath}({lineNumber,5})][{memberName}]";
-                    return option;
+                    if ((!string.IsNullOrEmpty(filePath)) && (!string.IsNullOrWhiteSpace(filePath)) &&
+                        (!string.IsNullOrEmpty(memberName)) && (!string.IsNullOrWhiteSpace(memberName)) &&
+                        (0 < lineNumber)
+                        )
+                    {
+                        string option = $"[{filePath}({lineNumber,5})][{memberName}]";
+                        return option;
+                    }
+                    else
+                    {
+                        return string.Empty;
+                    }
                 }
                 else
                 {
@@ -418,7 +481,5 @@ namespace Logger
                 return string.Empty;
             }
         }
-
-
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 
-namespace Logger.Console
+namespace CS.Logger.Console
 {
 	public class DebugLog : ALog
 	{

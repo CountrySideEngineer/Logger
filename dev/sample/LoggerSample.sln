@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35828.75 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logger", "Logger\Logger.csproj", "{6749AF2E-43CD-4AC9-AB77-D28C7C38D267}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggerSample", "LoggerSample\LoggerSample.csproj", "{7D1CAF2F-67DB-4E68-A78A-200AF6E19271}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6749AF2E-43CD-4AC9-AB77-D28C7C38D267}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6749AF2E-43CD-4AC9-AB77-D28C7C38D267}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6749AF2E-43CD-4AC9-AB77-D28C7C38D267}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6749AF2E-43CD-4AC9-AB77-D28C7C38D267}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D1CAF2F-67DB-4E68-A78A-200AF6E19271}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D1CAF2F-67DB-4E68-A78A-200AF6E19271}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D1CAF2F-67DB-4E68-A78A-200AF6E19271}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D1CAF2F-67DB-4E68-A78A-200AF6E19271}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {0E9A56A6-B89A-468F-B483-B8013A9A310E}
+		SolutionGuid = {E72780D5-FEE3-4D26-BA39-BC8ADB0DF548}
 	EndGlobalSection
 EndGlobal

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Logger.File
+namespace CS.Logger.File
 {
 	public class Log : ALog
 	{
@@ -29,12 +29,55 @@ namespace Logger.File
 			FilePath = filePath;
 		}
 
-		/// <summary>
-		/// Output mesage to log file.
-		/// </summary>
-		/// <param name="level">Log level in string.</param>
-		/// <param name="message"></param>
-		public override void Output(string message)
+        /// <summary>
+        /// Constructor with path to log file and output log level.
+        /// </summary>
+		/// <param name="filePath">Path to log file.</param>
+        /// <param name="logLevel">Output log level.</param>
+        public Log(LOG_LEVEL logLevel, string filePath) : base(logLevel)
+        {
+            FilePath = filePath;
+        }
+
+        /// <summary>
+        /// Constructor with path to log file and output log level.
+        /// </summary>
+		/// <param name="filePath">Path to log file.</param>
+        /// <param name="logLevel">Output log level.</param>
+        public Log(LOG_LEVEL logLevel, bool optionEnable, string filePath) : base(logLevel, optionEnable)
+        {
+            FilePath = filePath;
+        }
+
+        /// <summary>
+        /// Constructor with log level, their tags, and path to log file.
+        /// </summary>
+        /// <param name="logLevel">Output log level.</param>
+        /// <param name="filePath">Log message output file path.</param>
+        /// <param name="optionEnable">Option part in message header is enable or not.</param>
+        /// <param name="fatalTag">FATAL level log tag displayed in log message header.</param>
+        /// <param name="errTag">ERROR level log tag displayed in log message header.</param>
+        /// <param name="warnTag">WARN(ing) level log tag displayed in log message header.</param>
+        /// <param name="infoTag">INFO(rmation) level log tag displayed in log message header.</param>
+        /// <param name="debugTag">DEBUG level log tag displayed in log message header.</param>
+        /// <param name="traceTag">TRACE level log tag displayed in log message header.</param>
+        /// <param name="logLevel">Output log level.</param>
+        public Log(
+            LOG_LEVEL logLevel, bool optionEnable,
+            string fatalTag, string errTag, string warnTag, string infoTag, string debugTag, string traceTag,
+            string filePath
+            )
+            : base(logLevel, optionEnable, fatalTag, errTag, warnTag, infoTag, debugTag, traceTag)
+        {
+            FilePath = filePath;
+        }
+
+        /// <summary>
+        /// Output mesage to log file.
+        /// </summary>
+        /// <param name="level">Log level in string.</param>
+        /// <param name="message"></param>
+        public override void Output(string message)
 		{
 			try
 			{

@@ -14,10 +14,19 @@ namespace Logger.EventArg
 		/// </summary>
 		public string Message { get; set; }
 
+        /// <summary>
+        /// File name the event raised.
+        /// </summary>
 		public string FileName { get; set; } = string.Empty;	
 
+        /// <summary>
+        /// The line number of the event raised.
+        /// </summary>
 		public int LineNumber { get; set; } = 0;
 
+        /// <summary>
+        /// The name of member which raised event.
+        /// </summary>
 		public string MemberName { get; set; } = string.Empty;
 
 		/// <summary>
