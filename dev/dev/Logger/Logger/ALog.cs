@@ -19,9 +19,9 @@ namespace CS.Logger
     
     public abstract class ALog : ILog, ILogEvent
 	{
-        public LOG_LEVEL LogLevel = LOG_LEVEL.ALL;
+        public LOG_LEVEL LogLevel { get; protected set; } = LOG_LEVEL.ALL;
 
-        public bool OptionEnable = true;
+        public bool OptionEnable { get; protected set; } = true;
 
 		/// <summary>
 		/// TRACE level log tag.
