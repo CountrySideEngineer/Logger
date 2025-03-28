@@ -10,9 +10,12 @@ CS.Logger.ALog consoleLogger = new CS.Logger.Console.Log();
 //  To change the log level of the output, specify the log level
 //  to be output when the instace is created.
 //  The available log level is from OFF to ALL.
-//  A code to change the log level is like below:
-//  (This code sets the level to INFO, WARN, ERROR, and FATAL.)
-
+//
+//  Ex:
+//      If to set to show only INFO, WANR, ERROR, and FATAL level,
+//      pass LOG_LEVEL.INFO to constructor of the log class.
+//      The code is like below:
+//
 //  CS.Logger.ALog consoleLogger = new CS.Logger.Console.Log(LOG_LEVEL.INFO);
 
 // 2. Add the instance to Logger using AddLogger static method.
