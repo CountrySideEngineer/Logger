@@ -1,7 +1,8 @@
 # Logger
 
 [![LICENSE](https://img.shields.io/badge/License-MIT-brightfreen.svg)](https://spdx.org/licenses/MIT)
-![APP_VER](https://img.shields.io/badge/Logger_for_C%23-v1.0.0-blue)
+![APP_VER](https://img.shields.io/badge/Logger_for_C%23-v2.1.0-blue)
+![DOT_NET_CORE](https://img.shields.io/badge/Core-8.0-%20?style=flat&logo=.NET&color=512BD4)
 ![DOT_NET_CORE](https://img.shields.io/badge/Core-3.1-%20?style=flat&logo=.NET&color=%23512BD4)
 ![DOT_NET_FRAMEWORK](https://img.shields.io/badge/Framework-4.7.1-a?style=flat&logo=.NET)
 ![OS](https://img.shields.io/badge/-Windows10-0078D6.svg?logo=windows&style=flat)
@@ -20,52 +21,23 @@ And then, setup logger in your codes called when starts.
 Sample codes:
 
 ```
-using Logger;
+using CS.Logger;
 
-namespace LoggerSample
-{
-	public class Program
-	{
-		static void Main(string[] args)
-		{
-			Log.AddLogger(new Logger.Console.Log());
-			Log.AddLogger(new Logger.File.Log());
+CS.Logger.ALog consoleLogger = new CS.Logger.Console.Log();
+CS.Logger.Log.AddLogger(consoleLogger);
 
-			var sampleClass = new LoggerSampleClass();
-			sampleClass.Sample();
+CS.Logger.Log.TRACE("Sample TRACE level log message");
+CS.Logger.Log.DEBUG("Sample DEBUG level log message");
+CS.Logger.Log.INFO("Sample INFO(rmation) level log message");
+CS.Logger.Log.WARN("Sample WARN(ing) level log message");
+CS.Logger.Log.ERROR("Sample ERROR level log message");
+CS.Logger.Log.FATAL("Sample FATAL level log message");
 
-			return;
-		}
-	}
-}
 ```
 
 Codes `Log.Addogger` is a method the logger.dll provides, `Logger.Console.Log`, and `Logger.File.Log` are class to output log message into console and file.  
-The codes of `LoggerSampleClass` are below:
+The codes above output message into console like below:
 
-```
-using Logger;
-
-namespace LoggerSample
-{
-	public class LoggerSampleClass
-	{
-		public LoggerSampleClass() { }
-
-		public void Sample()
-		{
-			Log.TRACE("Sample TRACE message");
-			Log.DEBUG("Sample DEBUG message");
-			Log.INFO("Sample INFO message");
-			Log.WARN("Sample WARN message");
-			Log.ERROR("Sample ERROR message");
-			Log.FATAL("Sample FATAL message");
-		}
-	}
-}
-```
-
-When the codes above are executed, the console like below will be displayed.
 ![sample_screen_shotpng](https://github.com/user-attachments/assets/cef742e7-bdf9-44d3-ac68-f710dde0bdb2)
 
 And the same message will be output into a file like below:
