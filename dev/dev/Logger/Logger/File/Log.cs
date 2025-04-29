@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 
@@ -7,10 +8,14 @@ namespace CS.Logger.File
 {
 	public class Log : ALog
 	{
-		/// <summary>
-		/// Path to file to setup
-		/// </summary>
-		public string FilePath = string.Empty;
+        protected StreamWriter _writer = null;
+
+        protected List<string> _messageBuf = new List<string>();
+
+        /// <summary>
+        /// Path to file to setup
+        /// </summary>
+        public string FilePath = string.Empty;
 
 		/// <summary>
 		/// Default constructor.
@@ -27,7 +32,7 @@ namespace CS.Logger.File
 		public Log(string filePath) : base()
 		{
 			FilePath = filePath;
-		}
+        }
 
         /// <summary>
         /// Constructor with path to log file and output log level.
@@ -79,17 +84,13 @@ namespace CS.Logger.File
         /// <param name="message"></param>
         public override void Output(string message)
 		{
-			try
-			{
-				using (var stream = new StreamWriter(FilePath, true))
-				{
-					stream.WriteLine(message);
-				}
-			}
-			catch (Exception)
-			{
-				//There is no way to handle the exception.
-			}
+            _messageBuf.Add(message);
+
+            bool isSwitched = SwitchBuf();
+            if (isSwitched)
+            {
+                Flush();
+            }
 		}
 
 		/// <summary>
@@ -111,5 +112,56 @@ namespace CS.Logger.File
 
 			return filePath;
 		}
-	}
+
+        protected virtual void Flush()
+        {
+            Flush(_messageBuf);
+
+            _messageBuf.Clear();
+        }
+
+        protected virtual void Flush(IEnumerable<string> messages)
+        {
+            try
+            {
+                using (_writer = new StreamWriter(FilePath, true))
+                {
+                    foreach (var message in messages)
+                    {
+                        _writer.WriteLine(message);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                //There is no way to handle the exception.
+            }
+            finally
+            {
+                _writer = null;
+            }
+        }
+
+        protected virtual bool SwitchBuf()
+        {
+            if (1000 < _messageBuf.Count)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+
+            if (0 < _messageBuf.Count)
+            {
+                Flush(_messageBuf);
+            }
+        }
+    }
 }
