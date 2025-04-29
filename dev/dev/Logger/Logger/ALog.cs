@@ -17,7 +17,7 @@ namespace CS.Logger
         ALL,
     };
     
-    public abstract class ALog : ILog, ILogEvent
+    public abstract class ALog : ILog, ILogEvent, IDisposable
 	{
         public LOG_LEVEL LogLevel { get; protected set; } = LOG_LEVEL.ALL;
 
@@ -345,9 +345,9 @@ namespace CS.Logger
                 string timeStamp = GetTimeStampTag();
                 string logOpt = GetOption(filePath, lineNumber, memberName);
 
+                string msgHeader = $"{logLevelTag}{timeStamp}{logOpt}";
                 if ((!string.IsNullOrEmpty(message)) && (!string.IsNullOrWhiteSpace(message)))
                 {
-                    string msgHeader = $"{logLevelTag}{timeStamp}{logOpt}";
                     if (!(string.IsNullOrEmpty(msgHeader)) && (!(string.IsNullOrWhiteSpace(msgHeader))))
                     {
                         return $"{msgHeader}:{message}";
@@ -359,10 +359,16 @@ namespace CS.Logger
                 }
                 else
                 {
-                    return string.Empty;
-
+                    if (!(string.IsNullOrEmpty(msgHeader)) && (!(string.IsNullOrWhiteSpace(msgHeader))))
+                    {
+                        return $"{msgHeader}";
+                    }
+                    else
+                    {
+                        return string.Empty;
+                    }
                 }
-			}
+            }
 			catch (Exception ex)
 			when ((ex is NullReferenceException) || (ex is ArgumentNullException))
 			{
@@ -481,5 +487,10 @@ namespace CS.Logger
                 return string.Empty;
             }
         }
+
+        /// <summary>
+        /// Dispose logger.
+        /// </summary>
+        public virtual void Dispose() { }
     }
 }
