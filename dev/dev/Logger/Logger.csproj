@@ -32,7 +32,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Logger\ALog.cs.bak" />
     <None Include="..\..\..\LICENSE.md">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
