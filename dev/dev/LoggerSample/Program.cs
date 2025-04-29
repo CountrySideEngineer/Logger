@@ -6,6 +6,7 @@ using System.IO;
 using System.Text;
 using Logger;
 using Logger.Interface;
+using CS.Logger;
 
 namespace LoggerSample
 {
@@ -21,14 +22,18 @@ namespace LoggerSample
 
 		static void Main(string[] args)
 		{
-			SetUpLogger(new Logger.Console.DebugLog());
-            SetUpLogger(new Logger.Console.Log());
-			SetUpLogger(new Logger.File.Log());
+            using var fileLogger = new CS.Logger.File.Log();
+            using var debugLogger = new CS.Logger.Console.DebugLog();
+            using var consoleLogger = new CS.Logger.Console.Log();
 
-			var sampleClass = new LoggerSampleClass();
-			sampleClass.Sample();
+            SetUpLogger(debugLogger);
+            SetUpLogger(consoleLogger);
+            SetUpLogger(fileLogger);
 
-			return;
+            var sampleClass = new LoggerSampleClass();
+            sampleClass.Sample();
+
+            return;
 		}
 
 	}
